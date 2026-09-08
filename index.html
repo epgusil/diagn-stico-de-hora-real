@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>¿Cuánto vale tu hora realmente? | Escuela de Posgrado USIL</title>
+<meta name="description" content="Ningún profesional de salud sabe cuánto gana por hora. Cree que lo sabe. Descúbrelo en 2 minutos.">
+
+<!-- ============================================================
+     OPEN GRAPH / TWITTER CARD
+     EDITAR AQUÍ: reemplaza https://TU-USUARIO.github.io/TU-REPO/ por
+     tu URL real de GitHub Pages en og:url, og:image y twitter:image
+     (deben ser absolutas para que las redes sociales las lean bien).
+     ============================================================ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="¿Cuánto vale tu hora realmente?">
+<meta property="og:description" content="Ningún profesional de salud sabe cuánto gana por hora. Cree que lo sabe. Descúbrelo en 2 minutos.">
+<meta property="og:image" content="https://TU-USUARIO.github.io/TU-REPO/assets/img/og-image.png">
+<meta property="og:url" content="https://TU-USUARIO.github.io/TU-REPO/">
+<meta property="og:locale" content="es_PE">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="¿Cuánto vale tu hora realmente?">
+<meta name="twitter:description" content="Ningún profesional de salud sabe cuánto gana por hora. Cree que lo sabe.">
+<meta name="twitter:image" content="https://TU-USUARIO.github.io/TU-REPO/assets/img/og-image.png">
+
+<!-- Favicons -->
+<link rel="icon" type="image/x-icon" href="assets/img/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="assets/img/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="assets/img/favicon-180.png">
+
+<!-- Tipografía (opcional, quitar el link si se prefiere no depender de Google Fonts) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- Barra de progreso: visible desde la pantalla 2 a la 5 -->
+  <header class="progreso-header" id="progreso-header" hidden>
+    <div class="progreso-riel" aria-hidden="true">
+      <div class="progreso-relleno" id="progreso-relleno"></div>
+    </div>
+    <p class="progreso-texto" id="progreso-texto">Paso 1 de 5</p>
+  </header>
+
+  <main class="lienzo" id="lienzo">
+
+    <!-- ============================================================
+         PANTALLA 1 — PORTADA
+         ============================================================ -->
+    <section class="pantalla activa" id="pantalla-1" data-pantalla="1" aria-live="polite">
+      <div class="tarjeta-portada">
+        <img class="logo-portada" src="assets/img/logo-epg.png" alt="Escuela de Posgrado USIL" width="280" height="100">
+
+        <h1 class="titular-portada">¿Cuánto vale tu hora realmente?</h1>
+        <p class="bajada-portada">Ningún profesional de salud sabe cuánto gana por hora. Cree que lo sabe.</p>
+
+        <p class="linea-confianza">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2L4 6v6c0 5 3.4 8.4 8 10 4.6-1.6 8-5 8-10V6l-8-4z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></svg>
+          2 minutos · tus cifras no se guardan ni se envían a nadie
+        </p>
+
+        <button type="button" class="boton boton-primario boton-grande" id="btn-empezar">
+          Calcular mi hora real
+        </button>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANTALLA 2 — INGRESO MENSUAL
+         ============================================================ -->
+    <section class="pantalla" id="pantalla-2" data-pantalla="2">
+      <div class="tarjeta-pregunta">
+        <h2 class="pregunta-titulo">¿Cuánto entró el mes pasado?</h2>
+        <p class="pregunta-ayuda">Suma planilla, recibos por honorarios, guardias, consultorio particular y docencia.</p>
+
+        <div class="campo-numero-grande">
+          <label for="input-ingreso" class="prefijo-moneda" aria-hidden="true">S/</label>
+          <input
+            type="number"
+            id="input-ingreso"
+            name="ingreso"
+            class="input-grande"
+            inputmode="numeric"
+            min="1"
+            step="0.01"
+            placeholder="0.00"
+            aria-describedby="error-ingreso"
+            autocomplete="off">
+          <label for="input-ingreso" class="etiqueta-visualmente-oculta">Ingreso mensual en soles</label>
+        </div>
+        <p class="mensaje-error" id="error-ingreso" role="alert"></p>
+
+        <div class="fila-botones">
+          <button type="button" class="boton boton-fantasma" data-volver>Atrás</button>
+          <button type="button" class="boton boton-primario" id="btn-continuar-2">Continuar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANTALLA 3 — HORAS VISIBLES
+         ============================================================ -->
+    <section class="pantalla" id="pantalla-3" data-pantalla="3">
+      <div class="tarjeta-pregunta">
+        <h2 class="pregunta-titulo">¿Cuántas horas al mes dice tu contrato o tu rol de turnos?</h2>
+
+        <div class="campo-numero-grande">
+          <input
+            type="number"
+            id="input-horas-visibles"
+            name="horasVisibles"
+            class="input-grande"
+            inputmode="numeric"
+            min="1"
+            step="1"
+            placeholder="0"
+            aria-describedby="error-horas-visibles"
+            autocomplete="off">
+          <span class="sufijo-unidad" aria-hidden="true">horas</span>
+          <label for="input-horas-visibles" class="etiqueta-visualmente-oculta">Horas mensuales según contrato</label>
+        </div>
+        <p class="mensaje-error" id="error-horas-visibles" role="alert"></p>
+
+        <div class="fila-botones">
+          <button type="button" class="boton boton-fantasma" data-volver>Atrás</button>
+          <button type="button" class="boton boton-primario" id="btn-continuar-3">Continuar</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANTALLA 4 — HORAS INVISIBLES
+         ============================================================ -->
+    <section class="pantalla" id="pantalla-4" data-pantalla="4">
+      <div class="tarjeta-pregunta tarjeta-ancha">
+        <h2 class="pregunta-titulo">Acá se cae el mito.</h2>
+        <p class="pregunta-ayuda">Sé honesto: nadie más ve esto.</p>
+
+        <div class="grilla-horas-ocultas">
+
+          <div class="campo-hora-oculta">
+            <label for="hi-1">Traslados entre sedes (horas al mes)</label>
+            <input type="number" id="hi-1" name="hi1" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+          <div class="campo-hora-oculta">
+            <label for="hi-2">Historias e informes que terminas fuera de turno</label>
+            <input type="number" id="hi-2" name="hi2" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+          <div class="campo-hora-oculta">
+            <label for="hi-3">Guardias que se estiraron</label>
+            <input type="number" id="hi-3" name="hi3" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+          <div class="campo-hora-oculta">
+            <label for="hi-4">WhatsApp del servicio fuera de horario</label>
+            <input type="number" id="hi-4" name="hi4" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+          <div class="campo-hora-oculta">
+            <label for="hi-5">Capacitación que pagas y llevas en tu tiempo libre</label>
+            <input type="number" id="hi-5" name="hi5" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+          <div class="campo-hora-oculta">
+            <label for="hi-6">Día de recuperación que no rinde tras una nocturna</label>
+            <input type="number" id="hi-6" name="hi6" class="input-pequeno" inputmode="numeric" min="0" step="1" value="0">
+          </div>
+
+        </div>
+        <p class="mensaje-error" id="error-horas-ocultas" role="alert"></p>
+
+        <div class="fila-botones">
+          <button type="button" class="boton boton-fantasma" data-volver>Atrás</button>
+          <button type="button" class="boton boton-primario" id="btn-continuar-4">Ver mi resultado</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANTALLA 5 — FORMULARIO (bloquea el resultado)
+         ============================================================ -->
+    <section class="pantalla" id="pantalla-5" data-pantalla="5">
+      <div class="tarjeta-pregunta tarjeta-ancha">
+        <h2 class="pregunta-titulo">Tu resultado está listo.</h2>
+        <p class="pregunta-ayuda">Déjanos tus datos para verlo.</p>
+
+        <form id="form-datos" class="formulario-datos" novalidate>
+
+          <div class="grilla-formulario">
+            <div class="campo-formulario">
+              <label for="f-nombres">Nombres</label>
+              <input type="text" id="f-nombres" name="nombres" autocomplete="given-name" required aria-describedby="error-f-nombres">
+              <p class="mensaje-error" id="error-f-nombres" role="alert"></p>
+            </div>
+
+            <div class="campo-formulario">
+              <label for="f-apellidos">Apellidos</label>
+              <input type="text" id="f-apellidos" name="apellidos" autocomplete="family-name" required aria-describedby="error-f-apellidos">
+              <p class="mensaje-error" id="error-f-apellidos" role="alert"></p>
+            </div>
+
+            <div class="campo-formulario">
+              <label for="f-dni">DNI</label>
+              <input type="text" id="f-dni" name="dni" inputmode="numeric" maxlength="8" placeholder="8 dígitos" required aria-describedby="error-f-dni">
+              <p class="mensaje-error" id="error-f-dni" role="alert"></p>
+            </div>
+
+            <div class="campo-formulario">
+              <label for="f-telefono">Teléfono</label>
+              <input type="tel" id="f-telefono" name="telefono" inputmode="numeric" maxlength="9" placeholder="9 dígitos" required aria-describedby="error-f-telefono">
+              <p class="mensaje-error" id="error-f-telefono" role="alert"></p>
+            </div>
+
+            <div class="campo-formulario campo-formulario-ancho">
+              <label for="f-correo">Correo electrónico</label>
+              <input type="email" id="f-correo" name="correo" autocomplete="email" required aria-describedby="error-f-correo">
+              <p class="mensaje-error" id="error-f-correo" role="alert"></p>
+            </div>
+          </div>
+
+          <!-- ================================================
+               EDITAR AQUÍ: texto legal provisional. Reemplazar
+               por el texto final aprobado por el DPO y por la
+               URL real de la Política de Privacidad.
+               ================================================ -->
+          <div class="campo-consentimiento">
+            <input type="checkbox" id="f-consentimiento" name="consentimiento" required aria-describedby="error-f-consentimiento">
+            <label for="f-consentimiento">
+              Autorizo a la Universidad San Ignacio de Loyola el tratamiento de mis datos personales
+              con fines informativos y de promoción de los programas de la Escuela de Posgrado,
+              conforme a la Ley N° 29733 y su reglamento. Puedo revocar esta autorización en
+              cualquier momento escribiendo a <span class="editar-marcador">[CORREO DPO]</span>.
+            </label>
+          </div>
+          <p class="mensaje-error" id="error-f-consentimiento" role="alert"></p>
+
+          <a href="#" class="enlace-privacidad" id="enlace-privacidad" target="_blank" rel="noopener">
+            Ver Política de Privacidad
+          </a>
+          <!-- EDITAR AQUÍ: reemplazar href="#" arriba por la URL real -->
+
+          <div class="fila-botones">
+            <button type="button" class="boton boton-fantasma" data-volver>Atrás</button>
+            <button type="submit" class="boton boton-primario" id="btn-ver-resultado" disabled>Ver mi resultado</button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         PANTALLA 6 — RESULTADO
+         ============================================================ -->
+    <section class="pantalla" id="pantalla-6" data-pantalla="6">
+      <div class="tarjeta-resultado">
+
+        <div class="grilla-resultado-cifras">
+          <div class="tarjeta-cifra tarjeta-cifra-destacada">
+            <p class="cifra-etiqueta">Tu hora real</p>
+            <p class="cifra-valor" id="res-hora-real">S/ 0.00</p>
+          </div>
+          <div class="tarjeta-cifra">
+            <p class="cifra-etiqueta">La hora que creías ganar</p>
+            <p class="cifra-valor" id="res-hora-creida">S/ 0.00</p>
+          </div>
+          <div class="tarjeta-cifra">
+            <p class="cifra-etiqueta">Tu trabajo no pagado</p>
+            <p class="cifra-valor" id="res-horas-no-pagadas">0 horas al mes</p>
+          </div>
+        </div>
+
+        <div class="bloque-brecha">
+          <div class="brecha-etiquetas">
+            <span>Brecha entre lo que crees ganar y lo que ganas</span>
+            <span id="res-brecha-porcentaje">0%</span>
+          </div>
+          <div class="brecha-barra-riel" role="img" aria-label="Barra de brecha porcentual">
+            <div class="brecha-barra-relleno" id="res-brecha-barra"></div>
+          </div>
+        </div>
+
+        <div class="bloque-arquetipo" id="bloque-arquetipo">
+          <p class="arquetipo-emoji" id="arquetipo-emoji">🕯️</p>
+          <p class="arquetipo-titulo" id="arquetipo-titulo">TRABAJAS POR VOCACIÓN</p>
+          <p class="arquetipo-descripcion" id="arquetipo-descripcion">
+            Tu hora real cayó casi a la mitad. La institución cuenta con eso. Por eso no cambia.
+          </p>
+        </div>
+
+        <p class="cierre-comun">Los tres son honestos. Solo uno escala.</p>
+
+        <!-- ============================================================
+             BLOQUE DE CONVERSIÓN
+             EDITAR AQUÍ: reemplazar los programas y enlaces de ejemplo
+             por los programas reales de la Escuela de Posgrado.
+             ============================================================ -->
+        <div class="bloque-conversion">
+          <h3 class="conversion-titulo">Tu tiempo vale más cuando tu especialización también</h3>
+
+          <div class="grilla-programas">
+            <a class="tarjeta-programa" href="#" target="_blank" rel="noopener">
+              <span class="programa-nombre">Maestría en Gestión de Servicios de Salud</span>
+              <span class="programa-flecha" aria-hidden="true">Ver programa</span>
+            </a>
+            <a class="tarjeta-programa" href="#" target="_blank" rel="noopener">
+              <span class="programa-nombre">Especialidad Internacional en Salud Pública</span>
+              <span class="programa-flecha" aria-hidden="true">Ver programa</span>
+            </a>
+            <a class="tarjeta-programa" href="#" target="_blank" rel="noopener">
+              <span class="programa-nombre">Doctorado en Ciencias de la Salud</span>
+              <span class="programa-flecha" aria-hidden="true">Ver programa</span>
+            </a>
+          </div>
+
+          <a href="#" class="boton boton-primario boton-grande boton-conversion" target="_blank" rel="noopener">
+            Hablar con un asesor académico
+          </a>
+
+          <div class="fila-compartir">
+            <button type="button" class="boton boton-compartir boton-whatsapp" id="btn-compartir-whatsapp">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.85.5 3.58 1.35 5.06L2 22l5.06-1.33A9.94 9.94 0 0 0 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zm5.2 14.2c-.22.62-1.28 1.18-1.77 1.24-.45.06-1.02.09-1.65-.1-.38-.12-.87-.28-1.5-.55-2.64-1.14-4.36-3.8-4.5-3.98-.13-.18-1.08-1.44-1.08-2.74s.68-1.94.92-2.2c.24-.26.53-.32.7-.32.18 0 .35 0 .5.01.16.01.38-.06.6.46.22.53.75 1.83.82 1.96.07.13.11.29.02.47-.09.18-.13.29-.26.45-.13.15-.27.34-.39.46-.13.13-.26.27-.11.53.15.26.67 1.1 1.43 1.78.98.88 1.81 1.15 2.07 1.28.26.13.41.11.56-.07.15-.18.64-.75.81-1.01.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.62-.16 1.24z"/></svg>
+              WhatsApp
+            </button>
+            <button type="button" class="boton boton-compartir boton-linkedin" id="btn-compartir-linkedin">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M4.98 3.5a2.5 2.5 0 1 1 0 5 2.5 2.5 0 0 1 0-5zM3 9h4v12H3V9zm7 0h3.8v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21H18.4v-5.6c0-1.34-.02-3.06-1.87-3.06-1.87 0-2.16 1.46-2.16 2.96V21H10V9z"/></svg>
+              LinkedIn
+            </button>
+          </div>
+
+          <button type="button" class="boton boton-fantasma boton-reiniciar" id="btn-reiniciar">Volver a calcular</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>
