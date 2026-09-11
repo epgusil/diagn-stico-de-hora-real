@@ -12,8 +12,13 @@ GitHub Pages.
 /assets/css/style.css
 /assets/js/app.js
 /assets/img/        → logo, favicons e imagen para redes sociales
+/apps-script/Codigo.gs  → script para conectar el formulario a Google Sheets
 /README.md
 ```
+
+La carpeta `/apps-script/` no se sube a GitHub Pages ni la usa el sitio
+directamente — es solo el código que copias al editor de Apps Script. Ver la
+sección 4 más abajo.
 
 ## 1. Desplegar en GitHub Pages
 
@@ -64,8 +69,10 @@ barra de progreso, tarjetas, acentos).
   actualiza los tres enlaces `<a class="tarjeta-programa">` con el nombre real
   del programa y su URL.
 - **Logo / imagen de redes sociales**: los archivos están en `assets/img/`.
-  `logo-epg.png` es el logo institucional recortado; `og-image.png` es la
-  imagen que se muestra al compartir el enlace en WhatsApp/LinkedIn/redes.
+  `logo-epg.png` es el logo institucional con fondo transparente (usado en la
+  portada); `og-image.png` es la imagen que se muestra al compartir el enlace
+  en WhatsApp/LinkedIn/redes, y los `favicon-*` se generaron a partir del
+  mismo logo en alta resolución para verse nítidos en cualquier pantalla.
 
 ## 4. Conectar el formulario a Google Sheets (Apps Script)
 
@@ -83,38 +90,15 @@ resultado y se descartan.
 ### Pasos
 
 1. **Crea el Google Sheet.** Ve a [sheets.google.com](https://sheets.google.com),
-   crea uno nuevo y en la primera fila agrega estos encabezados (uno por
+   crea uno nuevo (puedes llamarlo, por ejemplo, "Diagnóstico de hora real —
+   Respuestas") y en la primera fila agrega estos encabezados (uno por
    columna, en este orden):
    `fechaHora | nombres | apellidos | dni | correo | telefono | arquetipo | urlOrigen | utm_source | utm_medium | utm_campaign`
 
 2. **Abre el editor de Apps Script.** Dentro del Sheet, ve a
    **Extensiones → Apps Script**. Borra el contenido de `Código.gs` y pega
-   esto:
-
-   ```javascript
-   function doPost(e) {
-     var hoja = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
-     var datos = JSON.parse(e.postData.contents);
-
-     hoja.appendRow([
-       datos.fechaHora || new Date().toISOString(),
-       datos.nombres || "",
-       datos.apellidos || "",
-       datos.dni || "",
-       datos.correo || "",
-       datos.telefono || "",
-       datos.arquetipo || "",
-       datos.urlOrigen || "",
-       (datos.utm && datos.utm.utm_source) || "",
-       (datos.utm && datos.utm.utm_medium) || "",
-       (datos.utm && datos.utm.utm_campaign) || ""
-     ]);
-
-     return ContentService.createTextOutput(
-       JSON.stringify({ ok: true })
-     ).setMimeType(ContentService.MimeType.JSON);
-   }
-   ```
+   el contenido completo del archivo `apps-script/Codigo.gs` incluido en este
+   proyecto.
 
 3. **Despliega como aplicación web.** Arriba a la derecha, clic en
    **Implementar → Nueva implementación**. Elige el tipo **Aplicación web**.
